@@ -64,7 +64,7 @@ def callback():
 
 @bp.route('/sort_playlist', methods=["PUT", "GET"])
 def sort_playlist():
-    sort_playlist_services.sort_playlist('2etcGlbBu5V1XMFi3gtOZ3', 4, True)
+    sort_playlist_services.sort_playlist('2WatfNYA5W3rtMpv8Aasb3', 1, True)
     return "Check your playlist to see the sorting magic!"
     
 

@@ -7,7 +7,6 @@ Description: Contains all worker functions related to login and setup
 import requests
 from flask import current_app, request, session
 
-
 REDIRECT_URI = "http://localhost:5000/callback"
 AUTH_URL = "https://accounts.spotify.com/authorize"
 TOKEN_URL = "https://accounts.spotify.com/api/token"
