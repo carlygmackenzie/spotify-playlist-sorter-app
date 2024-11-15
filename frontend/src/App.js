@@ -1,12 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
-import Dropdown from './components/Dropdown';
+import SortingAttrDropdown from './components/SortingAttrDropdown';
+import { useState } from 'react';
 
 function App() {
+
+  //const dropdownContainerRef = useRef(null);
+  //const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [sortingAttr, setSortingAttr] = useState({ name: "Select a Sorting Attribute", id: null });
+  //useClickOutside(dropdownContainerRef, () => setIsDropdownOpen(false));
+
+  const attributes = [
+    { name: "Danceability", id: 1 },
+    { name: "Energy", id: 2 },
+    { name: "Key", id: 3 },
+    { name: "BPM", id: 4 },
+  ];
+
   return (
     <div className="App">
       <div>
-        <Dropdown/>
+        <SortingAttrDropdown
+          attributes={attributes}
+          sortingAttr={sortingAttr}
+          setSortingAttr={setSortingAttr}>
+            <SortingAttrDropdown.Button />
+        </SortingAttrDropdown>
       </div>
       <div>
       <input
