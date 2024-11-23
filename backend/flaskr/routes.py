@@ -4,10 +4,10 @@ Author: Carly MacKenzie
 Description: Holds all endpoints and calls their worker functions
 """
 
-from flask import Blueprint, current_app, redirect, request, url_for, session
+from flask import Blueprint, current_app, redirect, request, url_for, session, make_response
 import requests
 from urllib.parse import urlencode
-from src.flaskr.services import sort_playlist_services
+from backend.flaskr.services import sort_playlist_services
 
 bp = Blueprint('main', __name__)
 
@@ -15,10 +15,22 @@ REDIRECT_URI = "http://localhost:5000/callback"
 AUTH_URL = "https://accounts.spotify.com/authorize"
 TOKEN_URL = "https://accounts.spotify.com/api/token"
 
-@bp.route('/')
-def index():
-    return "Welcome to the Spotify Playlist Sorter!"
+@bp.route('/*', methods=["OPTIONS"])
+def handle_preflight():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+    response.headers.add("Access-Control-Allow-Headers", "content-Type, X-Requested-With")
+    response.headers.add("Access-Control-Allow-Methods", "POST", "GET", "PUT", "DELETE")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
 
+
+@bp.route('/data')
+def data():
+    return {
+        'message': "flask is working :)"
+    }
+
+# TODO: make this happen automatically
 @bp.route('/login')
 def login():
     # redirect user to Spotify's authorization page
@@ -60,11 +72,18 @@ def callback():
     session['refresh_token'] = response.json().get("refresh_token")
 
     #return session.get('access_token')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.data'))
 
-@bp.route('/sort_playlist', methods=["PUT", "GET"])
+# TODO: add ascending/descending option for user
+# TODO: return success/fail to frontend and handle accordingly
+@bp.route('/sort-playlist', methods=["POST"])
 def sort_playlist():
-    sort_playlist_services.sort_playlist('2WatfNYA5W3rtMpv8Aasb3', 1, True)
+
+    data = request.get_json()
+    playlist_id = data.get("playlistId")
+    sorting_attr = data.get("sortingAttr")
+
+    sort_playlist_services.sort_playlist(playlist_id, sorting_attr['id'], True)
     return "Check your playlist to see the sorting magic!"
     
 

@@ -37,7 +37,7 @@ def get_playlist_track_ids(playlist_id):
             offset += limit
 
         else:
-            print(f"error getting playlist tracks: {response}")
+            print(f"error getting playlist tracks: {response.text}")
             return None
         
     track_ids = []
@@ -108,6 +108,9 @@ def get_specific_detail_tuple(track_ids, track_details, sort_by):
     # TODO: fix this. if over 150 bpm maybe use halftime bpm
     elif sort_by == 4:
         to_sort = [track['tempo'] for track in track_details]
+
+    else:
+        to_sort = None
 
     return list(zip(track_ids, to_sort))
         

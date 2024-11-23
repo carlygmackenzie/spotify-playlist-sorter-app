@@ -1,13 +1,26 @@
 import './App.css';
 import SortingAttrDropdown from './components/SortingAttrDropdown';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
+// todo: separate this into different files
 function App() {
 
-  //const dropdownContainerRef = useRef(null);
-  //const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [message, setMessage] = useState("")
+
+  // just for testing
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const response = await axios.get('/data');
+      setMessage(response.data.message);
+    }
+
+    fetchData();
+  }, []);
+
   const [sortingAttr, setSortingAttr] = useState({ name: "Select a Sorting Attribute", id: null });
-  //useClickOutside(dropdownContainerRef, () => setIsDropdownOpen(false));
+  const [playlistId, setPlaylistId] = useState(''); 
 
   const attributes = [
     { name: "Danceability", id: 1 },
@@ -16,26 +29,46 @@ function App() {
     { name: "BPM", id: 4 },
   ];
 
+  // TODO: error and exception handling
+  const handleSortPlaylist = async () => {
+    console.log(playlistId);
+    if(playlistId && playlistId.length > 0){
+      const response = await axios.post(
+        '/sort-playlist',
+        {
+          playlistId: playlistId,
+          sortingAttr: sortingAttr
+        }
+      )
+    }
+  }
+
   return (
+
     <div className="App">
+      <p>{message}</p>
       <div>
         <SortingAttrDropdown
           attributes={attributes}
           sortingAttr={sortingAttr}
           setSortingAttr={setSortingAttr}>
-            <SortingAttrDropdown.Button />
+          <SortingAttrDropdown.Button />
+          <input
+            type="text"
+            placeholder="Enter Playlist ID"
+            value={playlistId}
+            onChange={(input) => setPlaylistId(input.target.value)}
+          />
+          <button
+            onClick={handleSortPlaylist}
+          >
+            Sort Playlist
+          </button>
         </SortingAttrDropdown>
       </div>
-      <div>
-      <input
-        type="text"
-        placeholder="Enter Playlist ID">
-      </input>
-      <button>
-        Sort Playlist
-      </button>
-      </div>
     </div>
+
+    
   );
 }
 

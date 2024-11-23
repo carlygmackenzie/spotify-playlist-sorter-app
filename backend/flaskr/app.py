@@ -1,5 +1,5 @@
 from flask import Flask
-from src.flaskr.routes import bp
+from backend.flaskr.routes import bp
 from dotenv import load_dotenv
 import os
 import secrets
