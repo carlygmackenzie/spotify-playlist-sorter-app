@@ -5,13 +5,27 @@ Welcome to the Spotify Playlist Sorter!
 ## Setup Steps
 
 1. Install required python libraries:<br>
-`pip install -r src/requirements.txt`
+`pip install -r backend/requirements.txt`
 
-4. Setup the python virtual environment:
+2. Setup the python virtual environment:
 - *Windows*:<br>
 `python -m venv venv \`<br>
-`.\backend\venv\Scripts\Activate`
+`.\venv\Scripts\Activate`
 
 - *Mac*:<br>
 `python -m venv venv\`<br>
 `source venv/bin/activate`
+
+3. Install JavaScript dependencies:<br>
+`npm install`
+
+## Start Application
+
+1. Start the backend<br>
+While in root directory: `spotify-playlist-sorter-app`<br>
+Run: `python -m backend.flaskr.app`
+
+2. Start the frontend<br>
+While in root directory: `spotify-playlist-sorter-app`<br>
+Run: `npm start --prefix frontend`
+
