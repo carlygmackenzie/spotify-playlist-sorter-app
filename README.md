@@ -10,7 +10,7 @@ Welcome to the Spotify Playlist Sorter!
 4. Setup the python virtual environment:
 - *Windows*:<br>
 `python -m venv venv \`<br>
-`.\venv\Scripts\Activate`
+`.\backend\venv\Scripts\Activate`
 
 - *Mac*:<br>
 `python -m venv venv\`<br>
