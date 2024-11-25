@@ -82,8 +82,9 @@ def sort_playlist():
     data = request.get_json()
     playlist_id = data.get("playlistId")
     sorting_attr = data.get("sortingAttr")
+    ascending = data.get("ascending")
 
-    sort_playlist_services.sort_playlist(playlist_id, sorting_attr['id'], True)
+    sort_playlist_services.sort_playlist(playlist_id, sorting_attr, ascending)
     return "Check your playlist to see the sorting magic!"
     
 
