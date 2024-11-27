@@ -1,6 +1,6 @@
 # Spotify Playlist Sorter
 
-Welcome to the Spotify Playlist Sorter!
+Welcome to the Spotify Playlist Sorter! (A work in progress)
 
 ## Setup Steps
 
